@@ -1,32 +1,37 @@
+// Import necessary packages
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-dotenv.config(); // Load environment variables from a .env file if present
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
-app.use(express.json());
 
-// Setup CORS to allow requests from your Vercel frontend
-app.use(cors({
-  origin: 'https://feesmanagement-indol.vercel.app', // Replace with your Vercel URL
-  optionsSuccessStatus: 200
-}));
+// Middleware
+app.use(express.json());  // to parse JSON requests
+app.use(cors());  // Allow all origins by default (change for specific domains in production)
 
 // MongoDB connection using environment variable
-const uri = process.env.MONGO_URI; // Make sure you set this variable in Vercel environment
-mongoose.connect(uri)
+const uri = process.env.MONGO_URI; // MongoDB URI from .env file or Vercel env variable
+
+// Connect to MongoDB Atlas
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Student schema and model
+// Define a Student schema
 const studentSchema = new mongoose.Schema({
   name: String,
   class: String,
-  fees: [Boolean], // Boolean array to track fee payment for 12 months
+  fees: [Boolean], // Array of Booleans to track fee payments for each month (12 months)
 });
 
+// Create a Student model
 const Student = mongoose.model('Student', studentSchema);
 
 // Routes
@@ -72,9 +77,8 @@ app.delete('/students/:id', async (req, res) => {
   }
 });
 
-// Start the server
+// Start the server on a specified port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
