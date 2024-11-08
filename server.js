@@ -1,15 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config(); // Load environment variables from a .env file if present
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
-// MongoDB connection string
-const uri = 'mongodb+srv://sheikhtanvirsiddiki55:ppp175980@cluster0.5ufyb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// Setup CORS to allow requests from your Vercel frontend
+app.use(cors({
+  origin: 'https://feesmanagement-indol.vercel.app', // Replace with your Vercel URL
+  optionsSuccessStatus: 200
+}));
 
-// MongoDB connection without deprecated options
+// MongoDB connection using environment variable
+const uri = process.env.MONGO_URI; // Make sure you set this variable in Vercel environment
 mongoose.connect(uri)
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
@@ -18,7 +24,7 @@ mongoose.connect(uri)
 const studentSchema = new mongoose.Schema({
   name: String,
   class: String,
-  fees: [Boolean], // Array to track fee payment for 12 months
+  fees: [Boolean], // Boolean array to track fee payment for 12 months
 });
 
 const Student = mongoose.model('Student', studentSchema);
@@ -71,3 +77,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
