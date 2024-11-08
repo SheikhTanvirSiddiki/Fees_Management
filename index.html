@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Portofilo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuition Fees Management</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="heading">
-        <nav><ul><a href="index.html">Home</a></ul></nav>
-        <nav><ul><a href="contact.html">Contact</a></ul></nav>
-        <nav><ul><a href="about.html">About Me</a></ul></nav>
-    </div>
+  <header>
+    <h1>Tuition Fees Management</h1>
+  </header>
+
+  <main>
+    <section id="student-list">
+      <h2>Student List</h2>
+      <button onclick="openAddStudentModal()">Add Student</button>
+      <ul id="students"></ul>
+    </section>
+
+    <section id="fee-management">
+      <h2>Fee Management</h2>
+      <label for="student">Select Student:</label>
+      <select id="student" onchange="loadStudentFees()"></select>
+      <div id="fee-status"></div>
+    </section>
+
+    <section id="analytics">
+      <h2>Analytics</h2>
+      <p>Total Received: <span id="total-received">0 BDT</span></p>
+      <p>Total Due: <span id="total-due">0 BDT</span></p>
+    </section>
+  </main>
+
+  <!-- Add Student Modal -->
+  <div id="add-student-modal" style="display:none;">
+    <h2>Add New Student</h2>
+    <input type="text" id="student-name" placeholder="Student Name">
+    <input type="text" id="student-class" placeholder="Class">
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="closeAddStudentModal()">Cancel</button>
+  </div>
+
+  <script src="app.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
+

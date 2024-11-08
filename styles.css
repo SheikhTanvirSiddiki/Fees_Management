@@ -1,14 +1,58 @@
-.heading{
-    background: rebeccapurple;
-}
-ul{
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  header {
     text-align: center;
-    text-decoration: none;
-    margin-left: 20%;
-}
-a{
-    text-decoration: none;
-    color: antiquewhite;
-}
-
-
+    margin-bottom: 20px;
+  }
+  
+  main {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #add-student-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    z-index: 1000;
+  }
+  
+  #add-student-modal input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+  }
+  
