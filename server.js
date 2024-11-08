@@ -6,9 +6,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection string (replace with your actual connection string if needed)
+// MongoDB connection string
 const uri = 'mongodb+srv://sheikhtanvirsiddiki55:ppp175980@cluster0.5ufyb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
+// MongoDB connection without deprecated options
 mongoose.connect(uri)
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
@@ -17,7 +18,7 @@ mongoose.connect(uri)
 const studentSchema = new mongoose.Schema({
   name: String,
   class: String,
-  fees: [Boolean],
+  fees: [Boolean], // Array to track fee payment for 12 months
 });
 
 const Student = mongoose.model('Student', studentSchema);
@@ -70,4 +71,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
